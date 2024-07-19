@@ -14,7 +14,9 @@ import {
   Alert,
   AlertIcon,
   Box,
+  VisuallyHidden,
 } from '@chakra-ui/react';
+import { FaGithub, FaInstagram, FaTwitter, FaYoutube } from 'react-icons/fa'
 
 const Feature = ({ text, text_label }) => {
   return (
@@ -29,6 +31,30 @@ const validatePinCode = (code) => {
   const regex = /^[0-9]{6}$/;
   return regex.test(code);
 };
+
+const SocialButton = ({children,label,href,}) => {
+  return (
+    <Box
+      bg={useColorModeValue('blackAlpha.100', 'whiteAlpha.100')}
+      rounded={'full'}
+      w={8}
+      h={8}
+      cursor={'pointer'}
+      as={'a'}
+      href={href}
+      target='_blank'
+      display={'inline-flex'}
+      alignItems={'center'}
+      justifyContent={'center'}
+      transition={'background 0.3s ease'}
+      _hover={{
+        bg: useColorModeValue('blackAlpha.200', 'whiteAlpha.200'),
+      }}>
+      <VisuallyHidden>{label}</VisuallyHidden>
+      {children}
+    </Box>
+  )
+}
 
 export default function PinCode() {
   const [pinCode, setPinCode] = useState('');
@@ -66,7 +92,7 @@ export default function PinCode() {
 
   return (
     <Container maxW={'5xl'} py={12}>
-      <Text
+      <Box
         textTransform={'uppercase'}
         color={'blue.400'}
         fontWeight={600}
@@ -75,9 +101,14 @@ export default function PinCode() {
         bg={useColorModeValue('blue.50', 'blue.900')}
         p={5}
         alignSelf={'flex-start'}
-        rounded={'md'}>
+        rounded={'md'} mb={3}>
         Pin Code Details Finder
-      </Text>
+        <Stack direction={'row'} mt={3} justifyContent={'center'} spacing={6}>
+          <SocialButton label={'Github'} href={'https://github.com/deep-maurya/Pincode-Detail'}>
+            <FaGithub />
+          </SocialButton>
+        </Stack>
+      </Box>
       <SimpleGrid columns={{ base: 1, md: 1 }} mt={10} spacing={10}>
         <Flex textAlign={'center'} ml={'auto'} mr={'auto'}>
           <form onSubmit={handleSubmit}>
